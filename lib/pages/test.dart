@@ -46,12 +46,10 @@ class _TestCallsState extends State<TestCalls> {
       _fetchPage(pageKey);
     });
   }
-  _fetchPage(int pageKey) async {
+  _fetchPage(int pageKey) async{
     try {
       int limit = 20;
       int offset = pageKey * limit;
-      // Iterable<CallLogEntry> filter = await CallLog.get();
-      // Iterable<CallLogEntry> filter1 = _removeDuplicateCallLogs(filter.toList());
 
       Iterable<CallLogEntry> entries = await CallLog.get()
           .then((log) => log.toList(growable: false))
