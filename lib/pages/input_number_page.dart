@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:i_calling/pages/varify_otp.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
+import '../styles/app_colors.dart';
+
 
 class InputNumber extends StatelessWidget {
   const InputNumber({Key? key}) : super(key: key);
@@ -29,10 +31,9 @@ class InputNumber extends StatelessWidget {
                       height: 40,
                       child: Image.asset('assets/images/logo.png'),
                     ),
-                    //const Text('i - Calling',style: TextStyle(color: Colors.green,fontSize: 20)),
                   ],
                 ),const SizedBox(height: 40,),
-                const Text('Enter Your Phone Number',style: TextStyle(color: Colors.black,fontSize: 16)),
+                const Text('Enter Your Phone Number',style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: 'JacquesFrancois-Regular')),
                 Container(
                   margin: const EdgeInsets.symmetric(
                       horizontal: 25, vertical: 10),
@@ -62,7 +63,7 @@ class InputNumber extends StatelessWidget {
               },
               child: Container(
                 height: 50,
-                decoration: BoxDecoration(color: Colors.green,borderRadius: BorderRadius.circular(5)),
+                decoration: BoxDecoration(color: AppColors.themeColor,borderRadius: BorderRadius.circular(5)),
                 margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 0),
                 child: const Center(child:  Text('Confirm',style: TextStyle(color: Colors.white,fontSize: 18))),
               ),

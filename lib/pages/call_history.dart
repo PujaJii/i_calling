@@ -1,3 +1,6 @@
+
+import 'dart:async';
+
 import 'package:flutter_dialpad/flutter_dialpad.dart';
 import 'package:get/get.dart';
 import 'package:i_calling/pages/search_page.dart';
@@ -5,6 +8,9 @@ import 'package:i_calling/pages/search_page.dart';
 import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:i_calling/pages/user_profile.dart';
+import 'package:i_calling/styles/app_colors.dart';
+import 'package:intl/intl.dart';
 
 ///TOP-LEVEL FUNCTION PROVIDED FOR WORK MANAGER AS CALLBACK
 // void callbackDispatcher() {
@@ -47,28 +53,8 @@ class CallHistory extends StatefulWidget {
 class _CallHistoryState extends State<CallHistory> {
 
   Iterable<CallLogEntry> _callLogEntries = <CallLogEntry>[];
-  int index = 0;
 
-  //
-  // static const _pageSize = 20;
-  //
-  // final PagingController<int, CharacterSummary> _pagingController =
-  // PagingController(firstPageKey: 0);
-  //
-  // Future<void> _fetchPage(int pageKey) async {
-  //   try {
-  //     final newItems = await RemoteApi.getCharacterList(pageKey, _pageSize);
-  //     final isLastPage = newItems.length < _pageSize;
-  //     if (isLastPage) {
-  //       _pagingController.appendLastPage(newItems);
-  //     } else {
-  //       final nextPageKey = pageKey + newItems.length;
-  //       _pagingController.appendPage(newItems, nextPageKey);
-  //     }
-  //   } catch (error) {
-  //     _pagingController.error = error;
-  //   }
-  // }
+  int index = 0;
   @override
   void initState() {
     // TODO: implement initState
@@ -91,12 +77,23 @@ class _CallHistoryState extends State<CallHistory> {
         .subtract(const Duration(days: 0))
         .millisecondsSinceEpoch;
     final Iterable<CallLogEntry> result = await CallLog.query(
-      dateFrom: from,
-      dateTo: to,
+      // dateFrom: from,
+      // dateTo: to,
     );
+    // Map<String, List<CallLogEntry>> groupedCallLogs = {};
+    //
+    // for (CallLogEntry callLog in result) {
+    //   if (groupedCallLogs.containsKey(callLog.number)) {
+    //     groupedCallLogs[callLog.number]!.add(callLog);
+    //   } else {
+    //     groupedCallLogs[callLog.number!] = [callLog];
+    //   }
+    // }
+    // print(groupedCallLogs);
 
-    setState(() {
+    setState(()  {
       _callLogEntries = result;
+
       isLoading = true;
     });
   }
@@ -109,91 +106,163 @@ class _CallHistoryState extends State<CallHistory> {
   Widget build(BuildContext context) {
     //const TextStyle mono = TextStyle(fontFamily: 'monospace');
      List<Color> colors = [
-      const Color(0x3300AF5B),
-      const Color(0x331800AF),
-      const Color(0x33AF4A00),
-      const Color(0x33AF0000),
+      // const Color(0x3300AF5B),
+       AppColors.pattern1,
+       AppColors.pattern2,
+       AppColors.pattern3,
+       AppColors.pattern4,
+    ];
+     List<Color> colors2 = [
+      // const Color(0x3300AF5B),
+
+       Color(0xFF00AF5B),
+       Color(0xFF1800AF),
+       Color(0xFFAF4A00),
+       Color(0xFF13828A),
     ];
 
     final List<Widget> children = <Widget>[];
     final List<Widget> faves = <Widget>[];
-    for (CallLogEntry entry in _callLogEntries) {
+     Map<String, CallLogEntry> uniqueCallLogs = {};
+
+     for (CallLogEntry callLog in _callLogEntries) {
+       if (!uniqueCallLogs.containsKey(callLog.number)) {
+         uniqueCallLogs[callLog.number!] = callLog;
+       }
+     }
+
+     for (CallLogEntry entry in uniqueCallLogs.values) {
+       print(entry.number);
+    //  }
+    // for (CallLogEntry entry in _callLogEntries) {
+      var myList = [];
+      myList.add(entry);
+      var filtered = myList.toSet().toList();
       //String nameInit = entry.name![0];
       // print(entry.callType.toString());
-      index++;
-        children.add(
-            ListTile(
-              leading: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  color: colors[index % colors.length],
-                ),
-                child: entry.name == null || entry.name == ''?
-                const Center(child: Text(
-                    'U', style: TextStyle(color : Colors.white, fontSize: 20))) :
-                Center(child: Text(((entry.name!).substring(0, 1)),
-                    style: const TextStyle(color : Colors.white, fontSize: 20))),
-              ),
-              title:
-              entry.name == null || entry.name == '' ?
-              const Text('Unknown Number'):
-              Text(entry.name!, style: const TextStyle(fontSize: 14)),
-              subtitle: Row(
-                children: [
-                  entry.callType.toString() == 'CallType.incoming' ?
-                  const Icon(
-                    Icons.call_received, size: 18, color: Colors.green,) :
-                  entry.callType.toString() == 'CallType.outgoing' ?
-                  const Icon(Icons.call_made, size: 18,) :
-                  entry.callType.toString() == 'CallType.missed' ?
-                  const Icon(Icons.call_missed, size: 18, color: Colors.red) :
-                  entry.callType.toString() == 'CallType.blocked' ?
-                  const Icon(Icons.block, size: 18, color: Colors.blue) :
-                  entry.callType.toString() == 'CallType.rejected' ?
-                  const Icon(Icons.call_received, size: 18,
-                      color: Colors.blue) :
-                  const SizedBox(),
-                  const SizedBox(width: 8,),
-                  Text(entry.number!),
-                ],
-              ),
-              trailing: InkWell(
-                  onTap: () {
-                    _callNumber(entry.number);
-                  },
-                  child: const Icon(Icons.call)),
-            )
-        );
 
-      faves.add(
-          Column(
+      var mycl = colors[index % colors.length];
+      var mycl2 = colors2[index % colors.length];
+      children.add(InkWell(
+              splashColor: AppColors.pattern1,
+              highlightColor: AppColors.pattern1,
+               onTap: () {
+                  _callNumber(entry.number);
+               },
+              child: ListTile(
+                leading: InkWell(
+                  onTap: () {
+                    Get.to(()=>  UserProfile(
+                        entry.name.toString(),
+                        entry.number.toString(),
+                        mycl,mycl2
+                    ));
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: AppColors.themeColor,),
+                      borderRadius: BorderRadius.circular(25),
+                      color: colors[index % colors.length],
+                    ),
+                    child: entry.name == null || entry.name == ''?
+                     Center(child: Text(
+                        'U', style: TextStyle(color : colors2[index % colors.length], fontSize: 20))) :
+                    Center(child: Text(((entry.name!).substring(0, 1)),
+                        style: TextStyle(color : colors2[index % colors.length], fontSize: 20))),
+                  ),
+                ),
+                title:
+                entry.name == null || entry.name == '' ?
+                const Text('Unknown Number',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),):
+                Text(entry.name!, style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w400)),
+                subtitle: Row(
+                  children: [
+                    entry.callType.toString() == 'CallType.incoming' ?
+                    Row(
+                      children: [
+                        Icon(Icons.call_received, size: 18, color: AppColors.themeColor,),
+                        const Text('Received Call'),
+                      ],
+                    ) :
+                    entry.callType.toString() == 'CallType.outgoing' ?
+                    Row(
+                      children: const [
+                         Icon(Icons.call_made, size: 18,),
+                         Text('Outgoing Call'),
+                      ],
+                    ) :
+                    entry.callType.toString() == 'CallType.missed' ?
+                    Row(
+                      children: const [
+                         Icon(Icons.call_missed, size: 18, color: Colors.red),
+                         Text('Missed Call'),
+                      ],
+                    ) :
+                    entry.callType.toString() == 'CallType.blocked' ?
+                    Row(
+                      children: const [
+                         Icon(Icons.block, size: 18, color: Colors.blue),
+                         Text('Blocked Call'),
+                      ],
+                    ) :
+                    entry.callType.toString() == 'CallType.rejected' ?
+                    Row(
+                      children: const [
+                         Icon(Icons.call_missed, size: 18, color: Colors.red),
+                         Text('Rejected call'),
+                      ],
+                    ) :
+                    const SizedBox(),
+                    const SizedBox(width: 8,),
+                    //Text('${DateFormat("h:mm a").format(DateFormat("hh:mm").parse(DateTime.fromMillisecondsSinceEpoch(entry.timestamp!)))}'),
+                    Text('.  ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(entry.timestamp!))}'),
+                  ],
+                ),
+                trailing: InkWell(
+                    onTap: () {
+                      Get.to(()=>UserProfile(
+                          entry.name.toString(),
+                          entry.number.toString(),
+                          mycl,mycl2)
+                      );
+                    },
+                    child: const Padding(
+                      padding:  EdgeInsets.all(5.0),
+                      child:  Icon(Icons.keyboard_arrow_right),
+                    )),
+              ),
+            ));
+      faves.add(Column(
             children: [
               Container(
-                height: 50,
-                width: 50,
+                height: 45,
+                width: 45,
                 margin: const EdgeInsets.symmetric(
                     vertical: 10, horizontal: 15),
                 decoration: BoxDecoration(
+                    border: Border.all(
+                        color: AppColors.themeColor),
                     borderRadius: BorderRadius.circular(25),
                     color: colors[index % colors.length]),
                 child: Center(child: entry.name == null || entry.name == '' ?
-                const Text(
-                  'U', style: TextStyle(color: Colors.white, fontSize: 20),)
+                 Text(
+                  'U', style: TextStyle(color: colors2[index % colors.length], fontSize: 20),)
                     : Text(((entry.name!).substring(0, 1)),
-                  style: const TextStyle(color: Colors.white, fontSize: 20),)),
+                  style:  TextStyle(color: colors2[index % colors.length], fontSize: 20),)),
               ),
-              entry.name == null || entry.name == '' ? const Text('U'):Text(entry.name!)
+              entry.name == null || entry.name == '' ? const Text('Unknown'):Text(entry.name!)
             ],
-          )
-      );
+          ));
+      index++;
     }
     return SafeArea(
       child: isLoading == false
           ?
-      const Scaffold(
-          body: Center(child: CircularProgressIndicator(color: Colors.green,)))
+       Scaffold(
+          body: Center(child: CircularProgressIndicator(color: AppColors.themeColor,)))
           :
       Scaffold(
         body: SingleChildScrollView(
@@ -207,16 +276,22 @@ class _CallHistoryState extends State<CallHistory> {
                     Get.to(() => const SearchPage());
                   },
                   child: Container(
-                    height: 50,
+                    height: 45,
                     decoration: const BoxDecoration(
                       color: Color(0x30818181),
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
                     child: Row(
-                      children: const [
-                        SizedBox(width: 15,),
-                        Icon(Icons.search),
-                        Text('     Search'),
+                      children:  [
+                        //const SizedBox(width: 15,),
+                        Container(
+                          height: 60,
+                          width: 60,
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/images/logo.png'))),
+                        ),
+                        const Text('Search numbers, names & more'),
                       ],
                     ),
                   ),
@@ -270,12 +345,12 @@ class _CallHistoryState extends State<CallHistory> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.themeColor,
           onPressed: () {
-            _showFormDialog();
+          //  _showFormDialog();
           },
           child: Image.asset(
-              'assets/images/ion_keypad.png', scale: 18, color: Colors.white),),
+              'assets/images/ion_keypad.png', scale: 22, color: Colors.white),),
       ),
     );
   }

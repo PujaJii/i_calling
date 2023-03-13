@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:i_calling/pages/intro_page.dart';
+import 'package:i_calling/styles/app_colors.dart';
 
 
 
@@ -32,15 +33,21 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            child: Image.asset('assets/images/caller.gif'),
-          ),
-          const Text('i - Calling',style: TextStyle(color: Colors.green,fontSize: 25)),
-        ],
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              child: Image.asset('assets/images/caller.gif'),
+            ),
+            Text('i - Calling',style: TextStyle(
+                color: AppColors.themeColor,
+                fontSize: 25,
+                fontFamily: 'JacquesFrancois-Regular')),
+          ],
+        ),
       ),
     );
   }

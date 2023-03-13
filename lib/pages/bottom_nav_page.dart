@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:i_calling/pages/profile.dart';
 
+import '../styles/app_colors.dart';
 import 'call_history.dart';
 import 'contact_page.dart';
 import 'invite_page.dart';
@@ -51,14 +52,14 @@ class _BottomNavPageState extends State<BottomNavPage> {
   Widget _buildLightDesign() {
     return CustomNavigationBar(
       iconSize: 25.0,
-      selectedColor: Colors.green,
+      selectedColor: AppColors.themeColor,
       strokeColor: const Color(0x30040307),
       unSelectedColor: const Color(0xffacacac),
       elevation: 10,
       backgroundColor: Colors.white,
       items: [
         CustomNavigationBarItem(
-          icon: const Icon(Icons.phone_callback_rounded),
+          icon: const Icon(Icons.call_outlined),
         ),
         CustomNavigationBarItem(
           icon: const Icon(Icons.contacts),
