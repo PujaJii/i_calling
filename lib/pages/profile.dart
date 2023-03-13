@@ -22,6 +22,8 @@ class Profile extends StatelessWidget {
             //Container(child: Text(subTitle,style: const TextStyle(color: Colors.grey))),
           ],
         ),
+
+
         actions:  [
           InkWell(
               onTap: () {
