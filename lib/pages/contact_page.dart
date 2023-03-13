@@ -2,6 +2,9 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:i_calling/pages/search_page.dart';
+import 'package:i_calling/pages/user_profile.dart';
+
+import '../styles/app_colors.dart';
 
 
 class ContactsPage extends StatefulWidget {
@@ -14,10 +17,18 @@ class ContactsPage extends StatefulWidget {
 class _ContactsPageState extends State<ContactsPage> {
   List<Contact> contacts = [];
   final List colors = [
-    const Color(0x3300AF5B),
-    const Color(0x331800AF),
-    const Color(0x33AF4A00),
-    const Color(0x33AF0000),
+    AppColors.pattern1,
+    AppColors.pattern2,
+    AppColors.pattern3,
+    AppColors.pattern4,
+  ];
+  List<Color> colors2 = [
+    // const Color(0x3300AF5B),
+
+    Color(0xFF00AF5B),
+    Color(0xFF1800AF),
+    Color(0xFFAF4A00),
+    Color(0xFF13828A),
   ];
 
 
@@ -45,8 +56,8 @@ class _ContactsPageState extends State<ContactsPage> {
     return SafeArea(
       child: Scaffold(
         body: isLoading ?
-         const Center(
-           child: CircularProgressIndicator(color: Colors.green,),)
+         Center(
+           child: CircularProgressIndicator(color: AppColors.themeColor,),)
             :
         Column(
           children: [
@@ -78,23 +89,34 @@ class _ContactsPageState extends State<ContactsPage> {
               child: ListView.builder(
                    itemCount: contacts.length,
                    itemBuilder: (context, index) {
-                   return ListTile(
-                    leading: Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color: colors[index % colors.length],),
-                      child: contacts[index].givenName == null || contacts[index].givenName == ''?
-                      const Center(child:  Text('U',style: TextStyle(color: Colors.white,fontSize: 20))):
-                      Center(child: Text(((contacts[index].givenName!).substring(0,1)),style: const TextStyle(color: Colors.white,fontSize: 20))),
-                    ),
-                    title:
-                    contacts[index].givenName == null || contacts[index].givenName == ''?
-                    const Text('Unknown'):
-                    Text(contacts[index].givenName!,style: const TextStyle(fontSize: 14)),
-                    subtitle:contacts[index].phones ==null || contacts[index].phones!.isEmpty?
-                    const Text(''):
-                    Text(contacts[index].phones!.first.value.toString()),
-                  );
+                   return InkWell(
+                     onTap: () {
+                       Get.to(()=> UserProfile(
+                           contacts[index].givenName.toString(),
+                           contacts[index].phones!.first.value.toString(),
+                           colors[index % colors.length],colors2[index % colors.length]));
+                     },
+                     child: ListTile(
+                      leading: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),color: colors[index % colors.length],
+                        ),
+                        child: contacts[index].givenName == null || contacts[index].givenName == ''?
+                        Center(child:  Text('U',style: TextStyle(color: colors2[index % colors.length],fontSize: 20))):
+                        Center(child: Text(((contacts[index].givenName!).substring(0,1)),
+                            style: TextStyle(color: colors2[index % colors.length],fontSize: 20))),
+                      ),
+                      title:
+                      contacts[index].givenName == null || contacts[index].givenName == ''?
+                      const Text('Unknown'):
+                      Text(contacts[index].givenName!,style: const TextStyle(fontSize: 14)),
+                      subtitle:contacts[index].phones ==null || contacts[index].phones!.isEmpty?
+                      const Text(''):
+                      Text(contacts[index].phones!.first.value.toString()),
+                  ),
+                   );
                 },
               ),
             ),

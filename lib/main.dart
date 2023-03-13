@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'i - Calling',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: const SplashScreen(),
     );

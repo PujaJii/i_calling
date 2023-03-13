@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:i_calling/pages/input_number_page.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import '../styles/app_colors.dart';
 
 
 
@@ -42,83 +45,78 @@ class _IntroPageState extends State<IntroPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const SizedBox(height: 60,),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('i - Calling',style: TextStyle(color: Colors.green,fontSize: 25)),
-
-              const SizedBox(height: 10,),
-              SizedBox(
-                height: 100,
-                child: Image.asset('assets/images/caller.gif'),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 200,
-            child: PageView.builder(
-              controller: _pageController,
-              onPageChanged: (int value) {
-                setState((){
-                  _indicator = value;
-                });
-              },
-              itemCount: _myList.length,
-              itemBuilder: (context, index) {
-              return Center(
-                child: Text(_myList[index],
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold,)),
-              );
-            },),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List<Widget>.generate(
-              _myList.length,
-                    (index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: InkWell(
-                          onTap: () {
-                            _pageController.animateToPage(index,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeIn);
-                          },
-                          child: CircleAvatar(
-                            radius: 5,
-                            backgroundColor: _indicator == index? Colors.green: Colors.grey,),
-                        ),);
-                    },
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(height: 60,),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('i - Calling',style: TextStyle(color: AppColors.themeColor,fontSize: 25,fontFamily: 'JacquesFrancois-Regular')),
+                const SizedBox(height: 10,),
+                SizedBox(
+                  height: 100,
+                  child: Image.asset('assets/images/caller.gif'),
+                ),
+              ],
             ),
-          ),
-          const SizedBox(height: 20,),
-           InkWell(
-             onTap: () {
-               Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
-                 return const InputNumber();
-               },));
-             },
-             child: Container(
-                height: 50,
-
-                decoration: BoxDecoration(color: Colors.green,borderRadius: BorderRadius.circular(5)),
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: const Center(child:  Text('Continue',style: TextStyle(color: Colors.white,fontSize: 18))),
+            SizedBox(
+              height: 200,
+              child: PageView.builder(
+                controller: _pageController,
+                onPageChanged: (int value) {
+                  setState((){
+                    _indicator = value;
+                  });
+                },
+                itemCount: _myList.length,
+                itemBuilder: (context, index) {
+                return Center(
+                  child: Text(_myList[index],
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold,)),
+                );
+              },),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List<Widget>.generate(
+                _myList.length,
+                      (index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: InkWell(
+                            onTap: () {
+                              _pageController.animateToPage(index,
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeIn);
+                            },
+                            child: CircleAvatar(
+                              radius: 5,
+                              backgroundColor: _indicator == index? AppColors.themeColor: Colors.grey,),
+                          ),);
+                      },
               ),
-           ),
-          const SizedBox(height: 2,),
+            ),
+            const SizedBox(height: 20,),
+             InkWell(
+               onTap: () {
+                   Get.to(()=>const InputNumber());
+               },
+               child: Container(
+                  height: 50,
 
-          // Container(
-          //   color: Colors.green,
-          //   child: const Text('Continue'),
-          // )
-        ],
+                  decoration: BoxDecoration(color: AppColors.themeColor,borderRadius: BorderRadius.circular(5)),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: const Center(child:  Text('Continue',style: TextStyle(color: Colors.white,fontSize: 18))),
+                ),
+             ),
+            const SizedBox(height: 2,),
+          ],
+        ),
       ),
     );
   }

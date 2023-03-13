@@ -22,10 +22,10 @@ class InvitePage extends StatelessWidget {
           Image.asset('assets/images/invite_frndz.png'),
           const Text('Invite Your Friends To Join\ni - calling',
               textAlign: TextAlign.center,style: TextStyle(fontSize: 18)),
-          ElevatedButton(
-              onPressed: () {
-               share();
-          }, child: const Text('Share'))
+          // ElevatedButton(
+          //     onPressed: () {
+          //      share();
+          // }, child: const Text('Share'))
         ],
       ),
     );
