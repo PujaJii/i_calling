@@ -22,7 +22,7 @@ class _TestCallsState extends State<TestCalls> {
 
   final PagingController<int, CallLogEntry> _pagingController =
   PagingController(firstPageKey: 0);
-  Iterable<CallLogEntry> _callLogEntries = <CallLogEntry>[];
+  // Iterable<CallLogEntry> _callLogEntries = <CallLogEntry>[];
 
   List<Color> colors = [
     AppColors.pattern1,
