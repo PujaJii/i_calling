@@ -53,18 +53,23 @@ class CallHistory extends StatefulWidget {
 class _CallHistoryState extends State<CallHistory> {
 
   Iterable<CallLogEntry> _callLogEntries = <CallLogEntry>[];
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  GlobalKey<RefreshIndicatorState>();
+
 
   int index = 0;
   @override
   void initState() {
-    // TODO: implement initState
-    getAllLogs();
-    // _pagingController.addPageRequestListener((pageKey) {
-    //   _fetchPage(pageKey);
-    // });
+
+      getAllLogs();
+
     super.initState();
   }
 
+  Future<void> _pullRefresh(var refreshIndicatorKey) async {
+    // _refreshIndicatorKey.currentState?.show();
+    getAllLogs();
+  }
   bool isLoading = false;
 
 
@@ -80,20 +85,8 @@ class _CallHistoryState extends State<CallHistory> {
       // dateFrom: from,
       // dateTo: to,
     );
-    // Map<String, List<CallLogEntry>> groupedCallLogs = {};
-    //
-    // for (CallLogEntry callLog in result) {
-    //   if (groupedCallLogs.containsKey(callLog.number)) {
-    //     groupedCallLogs[callLog.number]!.add(callLog);
-    //   } else {
-    //     groupedCallLogs[callLog.number!] = [callLog];
-    //   }
-    // }
-    // print(groupedCallLogs);
-
-    setState(()  {
+    setState(() {
       _callLogEntries = result;
-
       isLoading = true;
     });
   }
@@ -114,8 +107,7 @@ class _CallHistoryState extends State<CallHistory> {
     ];
      List<Color> colors2 = [
       // const Color(0x3300AF5B),
-
-       Color(0xFF00AF5B),
+       const Color(0xFF00AF5B),
        Color(0xFF1800AF),
        Color(0xFFAF4A00),
        Color(0xFF13828A),
@@ -132,18 +124,17 @@ class _CallHistoryState extends State<CallHistory> {
      }
 
      for (CallLogEntry entry in uniqueCallLogs.values) {
-       print(entry.number);
+      // print(entry.number);
     //  }
     // for (CallLogEntry entry in _callLogEntries) {
-      var myList = [];
-      myList.add(entry);
-      var filtered = myList.toSet().toList();
+
       //String nameInit = entry.name![0];
       // print(entry.callType.toString());
 
       var mycl = colors[index % colors.length];
       var mycl2 = colors2[index % colors.length];
-      children.add(InkWell(
+      children.add(
+          InkWell(
               splashColor: AppColors.pattern1,
               highlightColor: AppColors.pattern1,
                onTap: () {
@@ -234,7 +225,8 @@ class _CallHistoryState extends State<CallHistory> {
                       child:  Icon(Icons.keyboard_arrow_right),
                     )),
               ),
-            ));
+            )
+      );
       faves.add(Column(
             children: [
               Container(
@@ -258,90 +250,99 @@ class _CallHistoryState extends State<CallHistory> {
           ));
       index++;
     }
-    return SafeArea(
+    return
+
+
+      SafeArea(
       child: isLoading == false
           ?
        Scaffold(
           body: Center(child: CircularProgressIndicator(color: AppColors.themeColor,)))
           :
       Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 20,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: InkWell(
-                  onTap: () {
-                    Get.to(() => const SearchPage());
-                  },
-                  child: Container(
-                    height: 45,
-                    decoration: const BoxDecoration(
-                      color: Color(0x30818181),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    child: Row(
-                      children:  [
-                        //const SizedBox(width: 15,),
-                        Container(
-                          height: 60,
-                          width: 60,
-                          decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/images/logo.png'))),
-                        ),
-                        const Text('Search numbers, names & more'),
-                      ],
+        body: RefreshIndicator(
+          key: _refreshIndicatorKey,
+          onRefresh: () {
+            return _pullRefresh(_refreshIndicatorKey);
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 20,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(() => const SearchPage());
+                    },
+                    child: Container(
+                      height: 45,
+                      decoration: const BoxDecoration(
+                        color: Color(0x30818181),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+                      child: Row(
+                        children:  [
+                          //const SizedBox(width: 15,),
+                          Container(
+                            height: 60,
+                            width: 60,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/logo.png'))),
+                          ),
+                          const Text('Search numbers, names & more'),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 10,),
-              // Center(
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(8.0),
-              //     child: ElevatedButton(
-              //       onPressed: () async {
-              //         final Iterable<CallLogEntry> result = await CallLog.query();
-              //         setState(() {
-              //           _callLogEntries = result;
-              //         });
-              //       },
-              //       child: const Text('Get all'),
-              //     ),
-              //   ),
-              // ),
-              // Center(
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(8.0),
-              //     child: ElevatedButton(
-              //       onPressed: () {
-              //         // Workmanager().registerOneOffTask(
-              //         //   DateTime.now().millisecondsSinceEpoch.toString(),
-              //         //   'simpleTask',
-              //         //   existingWorkPolicy: ExistingWorkPolicy.replace,
-              //         // );
-              //       },
-              //       child: const Text('Get all in background'),
-              //     ),
-              //   ),
-              // ),
-              SizedBox(
-                height: 90,
-                child: ListView.builder(
-                  itemCount: 10,
-                  padding: const EdgeInsets.only(left: 10),
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return faves[index];
-                  },),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(children: children),
-              ),
-            ],
+                const SizedBox(height: 10,),
+                // Center(
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: ElevatedButton(
+                //       onPressed: () async {
+                //         final Iterable<CallLogEntry> result = await CallLog.query();
+                //         setState(() {
+                //           _callLogEntries = result;
+                //         });
+                //       },
+                //       child: const Text('Get all'),
+                //     ),
+                //   ),
+                // ),
+                // Center(
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: ElevatedButton(
+                //       onPressed: () {
+                //         // Workmanager().registerOneOffTask(
+                //         //   DateTime.now().millisecondsSinceEpoch.toString(),
+                //         //   'simpleTask',
+                //         //   existingWorkPolicy: ExistingWorkPolicy.replace,
+                //         // );
+                //       },
+                //       child: const Text('Get all in background'),
+                //     ),
+                //   ),
+                // ),
+                SizedBox(
+                  height: 90,
+                  child: ListView.builder(
+                    itemCount: 10,
+                    padding: const EdgeInsets.only(left: 10),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return faves[index];
+                    },),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(children: children),
+                ),
+              ],
+            ),
           ),
         ),
         floatingActionButton: FloatingActionButton(

@@ -124,7 +124,6 @@ class Profile extends StatelessWidget {
           //     ],
           //   ),
           // ),
-
           Container(
             decoration: BoxDecoration(border: Border.all(color: Colors.grey[300]!),
                 borderRadius: const  BorderRadius.all(Radius.circular(8))),
