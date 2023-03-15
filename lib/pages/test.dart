@@ -59,8 +59,6 @@ class _TestCallsState extends State<TestCalls> {
 
       List<CallLogEntry> newData = entries.toList();
       final isLastPage = newData.length < limit;
-      print(newData.length);
-      print(limit);
       if (isLastPage) {
         _pagingController.appendLastPage(newData);
       } else {
@@ -69,7 +67,7 @@ class _TestCallsState extends State<TestCalls> {
       }
     } catch (error) {
       _pagingController.error = error;
-      print(_pagingController.error);
+      debugPrint(_pagingController.error);
     }
   }
   _callNumber(var number) async {
@@ -130,7 +128,6 @@ class _TestCallsState extends State<TestCalls> {
                   itemBuilder: (context, item, index) {
                     var mycl = colors[index % colors.length];
                     var mycl2 = colors2[index % colors.length];
-
                    return InkWell(
                         splashColor: AppColors.pattern1,
                         highlightColor: AppColors.pattern1,

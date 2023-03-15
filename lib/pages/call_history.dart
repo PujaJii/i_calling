@@ -1,13 +1,13 @@
 
 import 'dart:async';
 
-import 'package:flutter_dialpad/flutter_dialpad.dart';
 import 'package:get/get.dart';
 import 'package:i_calling/pages/search_page.dart';
 
 import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:i_calling/pages/test2.dart';
 import 'package:i_calling/pages/user_profile.dart';
 import 'package:i_calling/styles/app_colors.dart';
 import 'package:intl/intl.dart';
@@ -41,7 +41,6 @@ import 'package:intl/intl.dart';
 //     }
 //   });
 // }
-
 /// example widget for call log plugin
 class CallHistory extends StatefulWidget {
   const CallHistory({Key? key}) : super(key: key);
@@ -60,9 +59,7 @@ class _CallHistoryState extends State<CallHistory> {
   int index = 0;
   @override
   void initState() {
-
       getAllLogs();
-
     super.initState();
   }
 
@@ -74,13 +71,13 @@ class _CallHistoryState extends State<CallHistory> {
 
 
   Future<void> getAllLogs() async {
-    var now = DateTime.now();
-    int from = now
-        .subtract(const Duration(days: 2))
-        .millisecondsSinceEpoch;
-    int to = now
-        .subtract(const Duration(days: 0))
-        .millisecondsSinceEpoch;
+    // var now = DateTime.now();
+    // int from = now
+    //     .subtract(const Duration(days: 2))
+    //     .millisecondsSinceEpoch;
+    // int to = now
+    //     .subtract(const Duration(days: 0))
+    //     .millisecondsSinceEpoch;
     final Iterable<CallLogEntry> result = await CallLog.query(
       // dateFrom: from,
       // dateTo: to,
@@ -99,7 +96,6 @@ class _CallHistoryState extends State<CallHistory> {
   Widget build(BuildContext context) {
     //const TextStyle mono = TextStyle(fontFamily: 'monospace');
      List<Color> colors = [
-      // const Color(0x3300AF5B),
        AppColors.pattern1,
        AppColors.pattern2,
        AppColors.pattern3,
@@ -108,7 +104,7 @@ class _CallHistoryState extends State<CallHistory> {
      List<Color> colors2 = [
       // const Color(0x3300AF5B),
        const Color(0xFF00AF5B),
-       Color(0xFF1800AF),
+       const Color(0xFF1800AF),
        Color(0xFFAF4A00),
        Color(0xFF13828A),
     ];
@@ -149,28 +145,80 @@ class _CallHistoryState extends State<CallHistory> {
                         mycl,mycl2
                     ));
                   },
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: AppColors.themeColor,),
-                      borderRadius: BorderRadius.circular(25),
-                      color: colors[index % colors.length],
-                    ),
-                    child: entry.name == null || entry.name == ''?
-                     Center(child: Text(
-                        'U', style: TextStyle(color : colors2[index % colors.length], fontSize: 20))) :
-                    Center(child: Text(((entry.name!).substring(0, 1)),
-                        style: TextStyle(color : colors2[index % colors.length], fontSize: 20))),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 50,
+                        margin: const EdgeInsets.only(bottom: 6),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: AppColors.themeColor,),
+                          borderRadius: BorderRadius.circular(25),
+                          color: colors[index % colors.length],
+                        ),
+                        child: entry.name == null || entry.name == ''?
+                         Center(child: Text(
+                            'U', style: TextStyle(color : colors2[index % colors.length], fontSize: 20))) :
+                        Center(child: Text(((entry.name!).substring(0, 1)),
+                            style: TextStyle(color : colors2[index % colors.length], fontSize: 20))),
+                      ),
+                      Positioned(
+                        left: 0,
+                        top: 0,
+                        child: Container(
+                          height: 15,width: 15,
+                          decoration: BoxDecoration(
+                            color: AppColors.themeColor,
+                            border: Border.all(width: 1.5,color: Colors.white),
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: const Text('i',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                                fontFamily: 'JacquesFrancois-Regular'),),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+
+                        child: Container(
+                         // height: 17,width: 17,
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                              color: AppColors.themeColor2,
+                              borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 2,
+                              offset: Offset(
+                                0,
+                                3,
+                              ),
+                            )]
+                          ),
+                          child: const Center(
+                            child: Text('17m',
+                              style: TextStyle(
+                                fontSize: 8,
+                                  color: Colors.white,
+                              ),),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 title:
                 entry.name == null || entry.name == '' ?
-                const Text('Unknown Number',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),):
+                Text(entry.number!,style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w400),):
                 Text(entry.name!, style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w400)),
                 subtitle: Row(
-                  children: [
+                    children: [
                     entry.callType.toString() == 'CallType.incoming' ?
                     Row(
                       children: [
@@ -220,32 +268,73 @@ class _CallHistoryState extends State<CallHistory> {
                           mycl,mycl2)
                       );
                     },
-                    child: const Padding(
-                      padding:  EdgeInsets.all(5.0),
-                      child:  Icon(Icons.keyboard_arrow_right),
-                    )),
+                    child: Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                            color: AppColors.pattern1,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: const Icon(Icons.keyboard_arrow_right,size: 17,))),
               ),
             )
       );
       faves.add(Column(
             children: [
-              Container(
-                height: 45,
-                width: 45,
-                margin: const EdgeInsets.symmetric(
-                    vertical: 10, horizontal: 15),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: AppColors.themeColor),
-                    borderRadius: BorderRadius.circular(25),
-                    color: colors[index % colors.length]),
-                child: Center(child: entry.name == null || entry.name == '' ?
-                 Text(
-                  'U', style: TextStyle(color: colors2[index % colors.length], fontSize: 20),)
-                    : Text(((entry.name!).substring(0, 1)),
-                  style:  TextStyle(color: colors2[index % colors.length], fontSize: 20),)),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    height: 45,
+                    width: 45,
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 6, horizontal: 15),
+                    decoration: BoxDecoration(
+                        // border: Border.all(
+                        //     color: AppColors.themeColor),
+                        borderRadius: BorderRadius.circular(25),
+                        color: colors[index % colors.length]),
+                    child: Center(child: entry.name == null || entry.name == '' ?
+                     Text(
+                      'U', style: TextStyle(color: colors2[index % colors.length], fontSize: 20),)
+                        : Text(((entry.name!).substring(0, 1)),
+                      style:  TextStyle(color: colors2[index % colors.length], fontSize: 20),)),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    //right: 14,
+                    child: Container(
+                      // height: 17,width: 17,
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          color: AppColors.themeColor2,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 2,
+                              offset: Offset(
+                                0,
+                                3,
+                              ),
+                            )]
+                      ),
+                      child: const Center(
+                        child: Text('17m',
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: Colors.white,
+                          ),),
+                      ),
+                    ),
+                  )
+                ],
               ),
-              entry.name == null || entry.name == '' ? const Text('Unknown'):Text(entry.name!)
+              const SizedBox(height: 5,),
+              entry.name == null || entry.name == '' ?
+              const Expanded(child: Text('Unknown'))
+                  :Expanded(child: Text(
+                  entry.name!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,))
             ],
           ));
       index++;
@@ -266,119 +355,186 @@ class _CallHistoryState extends State<CallHistory> {
             return _pullRefresh(_refreshIndicatorKey);
           },
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 20,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: InkWell(
-                    onTap: () {
-                      Get.to(() => const SearchPage());
-                    },
-                    child: Container(
-                      height: 45,
-                      decoration: const BoxDecoration(
-                        color: Color(0x30818181),
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                      ),
-                      child: Row(
-                        children:  [
-                          //const SizedBox(width: 15,),
-                          Container(
-                            height: 60,
-                            width: 60,
-                            decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage('assets/images/logo.png'))),
+            child: Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  const SizedBox(height: 20,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(() => const SearchPage());
+                      },
+                      child: Material(
+                         elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          //side:  BorderSide(color: AppColors.pattern1, width: 1),
+                        ),
+                       // borderRadius: BorderRadiusGeometry,
+                        child: Container(
+                          height: 45,
+                          decoration:  BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(6)
                           ),
-                          const Text('Search numbers, names & more'),
-                        ],
+                          child: Row(
+                            children:  [
+                              //const SizedBox(width: 15,),
+                              Container(
+                                height: 33,
+                                width: 33,
+                                margin: const EdgeInsets.only(left: 15),
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                                    image: DecorationImage(
+                                        image: AssetImage('assets/images/my_profile.jpg'))),
+                              ),
+                              const Text('    Search numbers, names & more'),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 10,),
-                // Center(
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: ElevatedButton(
-                //       onPressed: () async {
-                //         final Iterable<CallLogEntry> result = await CallLog.query();
-                //         setState(() {
-                //           _callLogEntries = result;
-                //         });
-                //       },
-                //       child: const Text('Get all'),
-                //     ),
-                //   ),
-                // ),
-                // Center(
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: ElevatedButton(
-                //       onPressed: () {
-                //         // Workmanager().registerOneOffTask(
-                //         //   DateTime.now().millisecondsSinceEpoch.toString(),
-                //         //   'simpleTask',
-                //         //   existingWorkPolicy: ExistingWorkPolicy.replace,
-                //         // );
-                //       },
-                //       child: const Text('Get all in background'),
-                //     ),
-                //   ),
-                // ),
-                SizedBox(
-                  height: 90,
-                  child: ListView.builder(
-                    itemCount: 10,
-                    padding: const EdgeInsets.only(left: 10),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return faves[index];
-                    },),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(children: children),
-                ),
-              ],
+                  const SizedBox(height: 10),
+                  // Center(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     child: ElevatedButton(
+                  //       onPressed: () async {
+                  //         final Iterable<CallLogEntry> result = await CallLog.query();
+                  //         setState(() {
+                  //           _callLogEntries = result;
+                  //         });
+                  //       },
+                  //       child: const Text('Get all'),
+                  //     ),
+                  //   ),
+                  // ),
+                  // Center(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     child: ElevatedButton(
+                  //       onPressed: () {
+                  //         // Workmanager().registerOneOffTask(
+                  //         //   DateTime.now().millisecondsSinceEpoch.toString(),
+                  //         //   'simpleTask',
+                  //         //   existingWorkPolicy: ExistingWorkPolicy.replace,
+                  //         // );
+                  //       },
+                  //       child: const Text('Get all in background'),
+                  //     ),
+                  //   ),
+                  // ),
+                  SizedBox(
+                    height: 90,
+                    child: ListView.builder(
+                      itemCount: 10,
+                      padding: const EdgeInsets.only(left: 10),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return faves[index];
+                      },),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(children: children),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColors.themeColor,
           onPressed: () {
-          //  _showFormDialog();
+          _showFormDialog();
           },
           child: Image.asset(
               'assets/images/ion_keypad.png', scale: 22, color: Colors.white),),
       ),
     );
   }
-
+  final TextEditingController _myController = TextEditingController();
   void _showFormDialog() {
     showModalBottomSheet<void>(
         context: context,
+       // barrierColor: Colors.transparent,
+        elevation: 10,
+        isScrollControlled : true,
         builder: (BuildContext context) {
-          return Center(
-            child: Container(
-              height: 300,
-              width: 300,
-              color: Colors.black,
-              child: DialPad(
-                  enableDtmf: true,
-                  outputMask: "00000 00000",
-                  hideSubtitle: false,
-                  backspaceButtonIconColor: Colors.red,
-                  buttonTextColor: Colors.white,
-                  dialOutputTextColor: Colors.white,
-                  keyPressed: (value){
-                    print('$value was pressed');
+          return FractionallySizedBox(
+            heightFactor: 0.6,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // display the entered numbers
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: TextField(
+                    controller: _myController,
+                    showCursor: false,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                        prefixIcon:  const Icon(Icons.add_circle_outline),
+                        suffix: InkWell(
+                          onLongPress: () {
+                            _myController.text = '';
+                          },
+                            child:  IconButton(
+                              onPressed: () {
+                                _myController.text = _myController.text
+                                    .substring(0, _myController.text.length - 1);
+                              }, icon: const Icon(Icons.backspace_outlined),
+                            ))),
+                    style: const TextStyle(fontSize: 30),
+                    // Disable the default soft keybaord
+                    keyboardType: TextInputType.none,
+                  ),
+                ),
+                // implement the custom NumPad
+                NumPad(
+                  buttonSize: 50,
+                  //buttonColor: Colors.purple,
+                  iconColor: Colors.black,
+                  controller: _myController,
+                  delete: () {
+                    // _myController.text = _myController.text
+                    //     .substring(0, _myController.text.length - 1);
                   },
-                  makeCall: (number){
-                    print(number);
-                  }
-              ),
+                  //do something with the input numbers
+                  onSubmit: () {
+                    // debugPrint('Your code: ${_myController.text}');
+                    // showDialog(
+                    //     context: context,
+                    //     builder: (_) => AlertDialog(
+                    //       content: Text(
+                    //         "You code is ${_myController.text}",
+                    //         style: const TextStyle(fontSize: 30),
+                    //       ),
+                    //   ));
+                  },
+                ),
+                const SizedBox(height: 18,),
+                InkWell(
+                  onTap: () {
+                     _callNumber(_myController.text);
+                   },
+                  child: Container(
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF00AF5B),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: const Icon(Icons.call_outlined, size: 27,color: Colors.white),
+                  ),
+                ),
+                const SizedBox(height: 10,)
+              ],
             ),
           );
         }

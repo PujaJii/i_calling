@@ -57,18 +57,27 @@ class _BottomNavPageState extends State<BottomNavPage> {
       unSelectedColor: const Color(0xffacacac),
       elevation: 10,
       backgroundColor: Colors.white,
+
       items: [
         CustomNavigationBarItem(
           icon: const Icon(Icons.call_outlined),
+          selectedTitle: Text('Call',style: TextStyle(fontSize: 12,color: AppColors.themeColor),),
+          title: const Text('Call',style: TextStyle(fontSize: 12),)
         ),
         CustomNavigationBarItem(
           icon: const Icon(Icons.contacts),
+            selectedTitle: Text('Contacts',style: TextStyle(fontSize: 12,color: AppColors.themeColor),),
+            title: const Text('Contacts',style: TextStyle(fontSize: 12),)
         ),
         CustomNavigationBarItem(
           icon: const Icon(Icons.add_box),
+            selectedTitle: Text('Invite',style: TextStyle(fontSize: 12,color: AppColors.themeColor),),
+            title: const Text('Invite',style: TextStyle(fontSize: 12),)
         ),
         CustomNavigationBarItem(
           icon: const Icon(Icons.account_circle),
+            selectedTitle: Text('Profile',style: TextStyle(fontSize: 12,color: AppColors.themeColor),),
+            title: const Text('Profile',style: TextStyle(fontSize: 12),)
         ),
       ],
       currentIndex: _currentIndex,

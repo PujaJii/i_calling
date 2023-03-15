@@ -4,6 +4,7 @@ class AppColors {
 
   //#ca1f26
   static final Color themeColor =  Color(0xFF009688);
+  static final Color themeColor2 = Color(0xFF001E7E);
   static final Color pattern1 = Color(0x3300AF5B);
   static final Color pattern2 = Color(0x331800AF);
   static final Color pattern3 = Color(0x33AF4A00);

@@ -32,7 +32,9 @@ class UserProfile extends StatelessWidget {
                   onTap: () {
                     Get.back();
                   },
-                  child: const Icon(Icons.arrow_back_outlined)),
+                  child: const Icon(
+                    Icons.arrow_back_outlined,
+                    color: Colors.black,)),
 
               flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
@@ -194,6 +196,13 @@ class UserProfile extends StatelessWidget {
                       children: const [
                         Icon(Icons.location_on_outlined),
                         Text('       West Bengal, India')
+                      ],
+                    ),
+                    Divider(color: Colors.grey[300],),
+                    Row(
+                      children: const [
+                        Icon(Icons.mail_outline_sharp),
+                        Expanded(child: Text('       username.tnts@gmail.com'))
                       ],
                     ),
                     Divider(color: Colors.grey[300],),
