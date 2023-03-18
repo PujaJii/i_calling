@@ -25,10 +25,10 @@ class _ContactsPageState extends State<ContactsPage> {
   List<Color> colors2 = [
     // const Color(0x3300AF5B),
 
-    Color(0xFF00AF5B),
-    Color(0xFF1800AF),
-    Color(0xFFAF4A00),
-    Color(0xFF13828A),
+    const Color(0xFF00AF5B),
+    const Color(0xFF1800AF),
+    const Color(0xFFAF4A00),
+    const Color(0xFF13828A),
   ];
 
 
@@ -56,7 +56,7 @@ class _ContactsPageState extends State<ContactsPage> {
     return SafeArea(
       child: Scaffold(
         body: isLoading ?
-         Center(
+         const Center(
            child: CircularProgressIndicator(color: AppColors.themeColor,),)
             :
         Column(
@@ -154,7 +154,7 @@ class _ContactsPageState extends State<ContactsPage> {
 
                             child: Container(
                               // height: 17,width: 17,
-                              padding: EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(4),
                               decoration: BoxDecoration(
                                   color: AppColors.themeColor2,
                                   borderRadius: BorderRadius.circular(10),

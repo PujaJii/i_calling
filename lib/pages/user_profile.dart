@@ -11,8 +11,8 @@ class UserProfile extends StatelessWidget {
  // const UserProfile({Key? key}) : super(key: key);
   String name;
   String number;
-  var color;
-  var color2;
+  Color color;
+  Color color2;
   UserProfile(this.name,this.number,this.color,this.color2, {Key? key}) : super(key: key);
 
   @override
@@ -208,7 +208,7 @@ class UserProfile extends StatelessWidget {
                     Divider(color: Colors.grey[300],),
                     Row(
                       children: [
-                        Container(
+                        SizedBox(
                             height: 30,
                             width: 30,
                             child: Image.asset('assets/images/whtsapp_ab.png',)),
@@ -218,7 +218,7 @@ class UserProfile extends StatelessWidget {
                     Divider(color: Colors.grey[300],),
                     Row(
                       children: [
-                        Container(
+                        SizedBox(
                             height: 30,
                             width: 30,
                             child: Image.asset('assets/images/tele_logo_a.png',)),
@@ -235,8 +235,8 @@ class UserProfile extends StatelessWidget {
                     borderRadius:
                     const  BorderRadius.all(Radius.circular(8))
                 ),
-                 margin: EdgeInsets.all(20),
-                 padding: EdgeInsets.fromLTRB(20,20,0,5),
+                 margin: const EdgeInsets.all(20),
+                 padding: const EdgeInsets.fromLTRB(20,20,0,5),
                  child: Column(
                    children: [
                      Expanded(
@@ -249,7 +249,7 @@ class UserProfile extends StatelessWidget {
                               Row(
                                 children:  [
                                   const Icon(Icons.call_missed,color: Colors.red),
-                                  Text('        $number',style: TextStyle(fontSize: 16),)
+                                  Text('        $number',style: const TextStyle(fontSize: 16),)
                                 ],
                               ),
                               Divider(color: Colors.grey[300],),
@@ -263,9 +263,9 @@ class UserProfile extends StatelessWidget {
                          Get.to(()=> ViewAll(number));
                          // }
                        },
-                       child: Container(
+                       child: const SizedBox(
                          height: 40,
-                         child: const Center(child:  Text('View All',style: TextStyle(color: Colors.green,fontSize: 16))),
+                         child: Center(child:  Text('View All',style: TextStyle(color: Colors.green,fontSize: 16))),
                        ),
                      ),
                    ],

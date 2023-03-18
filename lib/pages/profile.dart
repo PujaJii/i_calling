@@ -93,7 +93,7 @@ class Profile extends StatelessWidget {
                               Text('15'),
                             ],
                           ),
-                          Text('Total Spam Calls')
+                          const Text('Total Spam Calls')
                         ],
                       )
                     ],
@@ -105,23 +105,23 @@ class Profile extends StatelessWidget {
                       Column(
                         children: [
                           Row(
-                            children: [
+                            children: const [
                               Icon(Icons.verified_user_outlined,color: Colors.redAccent,),
                               Text('15'),
                             ],
                           ),
-                          Text('Total Spam Calls')
+                          const Text('Total Spam Calls')
                         ],
                       ),
                       Column(
                         children: [
                           Row(
-                            children: [
+                            children: const [
                               Icon(Icons.verified_user_outlined,color: Colors.redAccent,),
                               Text('15'),
                             ],
                           ),
-                          Text('Total Spam Calls')
+                          const Text('Total Spam Calls')
                         ],
                       )
                     ],
@@ -138,23 +138,23 @@ class Profile extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    children:  [
+                    children:  const [
                       Icon(Icons.location_on_outlined,color: AppColors.themeColor),
-                      const Text('      West Bengal, India')
+                      Text('      West Bengal, India')
                     ],
                   ),
                   Divider(color: Colors.grey[300],),
                   Row(
-                    children: [
+                    children: const [
                       Icon(Icons.notifications_none_outlined,color: AppColors.themeColor),
-                      const Text('     Notification')
+                      Text('     Notification')
                     ],
                   ),
                   Divider(color: Colors.grey[300],),
                   Row(
-                    children: [
+                    children: const [
                       Icon(Icons.verified_user_outlined,color: AppColors.themeColor),
-                      const Text('     Protect')
+                      Text('     Protect')
                     ],
                   )
                 ],

@@ -11,7 +11,7 @@ class InputDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    //final _formKey = GlobalKey<FormState>();
     return   Scaffold(
       body: Column(
         // crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,7 +36,7 @@ class InputDetails extends StatelessWidget {
                     style: const TextStyle(fontSize: 15, color: Colors.black),
                     decoration: InputDecoration(
                       hintStyle: const TextStyle(color: Colors.black),
-                      prefixIcon: Icon(Icons.person,color: AppColors.themeColor),
+                      prefixIcon: const Icon(Icons.person,color: AppColors.themeColor),
                       //suffixIcon: Icon(Icons.canc),
                       fillColor: Colors.white,
                       filled: true,
@@ -65,10 +65,10 @@ class InputDetails extends StatelessWidget {
                     //controller: editAppointmentController.nameTEC,
                     validator: (input) =>
                     input!.isEmpty ? "Please Enter Last Name" : null,
-                    style: TextStyle(fontSize: 15, color: Colors.black),
+                    style: const TextStyle(fontSize: 15, color: Colors.black),
                     decoration: InputDecoration(
                       hintStyle: const TextStyle(color: Colors.black),
-                      prefixIcon: Icon(Icons.person,color: AppColors.themeColor),
+                      prefixIcon: const Icon(Icons.person,color: AppColors.themeColor),
                       fillColor: Colors.white,
                       filled: true,
                       contentPadding: const EdgeInsets.symmetric(
@@ -99,7 +99,7 @@ class InputDetails extends StatelessWidget {
                     style: const TextStyle(fontSize: 15, color: Colors.black),
                     decoration: InputDecoration(
                       hintStyle: const TextStyle(color: Colors.black),
-                      prefixIcon: Icon(Icons.mail,color: AppColors.themeColor),
+                      prefixIcon: const Icon(Icons.mail,color: AppColors.themeColor),
                       fillColor: Colors.white,
                       filled: true,
                       contentPadding: const EdgeInsets.symmetric(

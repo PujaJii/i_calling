@@ -55,7 +55,7 @@ class _IntroPageState extends State<IntroPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('i - Calling',style: TextStyle(color: AppColors.themeColor,fontSize: 25,fontFamily: 'JacquesFrancois-Regular')),
+                const Text('i - Calling',style:  TextStyle(color: AppColors.themeColor,fontSize: 25,fontFamily: 'JacquesFrancois-Regular')),
                 const SizedBox(height: 10,),
                 SizedBox(
                   height: 100,

@@ -111,14 +111,6 @@ class NumPad extends StatelessWidget {
                 color: buttonColor,
                 controller: controller,
               ),
-              // IconButton(
-              //   onPressed: () => delete(),
-              //   icon: Icon(
-              //     Icons.backspace,
-              //     color: iconColor,
-              //   ),
-              //   iconSize: buttonSize,
-              // ),
               NumberButton(
                 number: '0',
                 size: buttonSize,
@@ -132,14 +124,6 @@ class NumPad extends StatelessWidget {
                 color: buttonColor,
                 controller: controller,
               ),
-              // IconButton(
-              //   onPressed: () => onSubmit(),
-              //   icon: Icon(
-              //     Icons.done_rounded,
-              //     color: iconColor,
-              //   ),
-              //   iconSize: buttonSize,
-              // ),
             ],
           ),
         ],
@@ -187,68 +171,3 @@ class NumberButton extends StatelessWidget {
 }
 /*
  */
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  // text controller
-  final TextEditingController _myController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('KindaCode.com'),
-      // ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // display the entered numbers
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: SizedBox(
-              height: 70,
-              child: Center(
-                  child: TextField(
-                    controller: _myController,
-                    textAlign: TextAlign.center,
-                    //showCursor: false,
-                    style: const TextStyle(fontSize: 40),
-                    // Disable the default soft keyboard
-                    keyboardType: TextInputType.none,
-                  )),
-            ),
-          ),
-          // implement the custom NumPad
-          NumPad(
-            buttonSize: 75,
-            buttonColor: Colors.purple,
-            iconColor: Colors.deepOrange,
-            controller: _myController,
-            delete: () {
-              _myController.text = _myController.text
-                  .substring(0, _myController.text.length - 1);
-            },
-            // do something with the input numbers
-            onSubmit: () {
-              debugPrint('Your code: ${_myController.text}');
-              showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    content: Text(
-                      "You code is ${_myController.text}",
-                      style: const TextStyle(fontSize: 30),
-                    ),
-                  ));
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}

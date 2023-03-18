@@ -14,7 +14,7 @@ class VerifyOTP extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+   // final _formKey = GlobalKey<FormState>();
 
     return   Scaffold(
       body: Column(
@@ -43,11 +43,11 @@ class VerifyOTP extends StatelessWidget {
                     fontSize: 17
                 ),
                 textFieldAlignment: MainAxisAlignment.center,
-                margin:  EdgeInsets.all(8),
+                margin:  const EdgeInsets.all(8),
                 otpFieldStyle: OtpFieldStyle(),
                 fieldStyle: FieldStyle.box,
                 onCompleted: (pin) {
-                  print("Completed: " + pin);
+                  debugPrint("Completed: $pin");
 
                 },
               ),

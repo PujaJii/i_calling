@@ -18,7 +18,7 @@ class ViewAll extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Text('    $number',style: const TextStyle(fontSize: 17)),
             Row(
               children: const [

@@ -27,7 +27,7 @@ class InputNumber extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 40,
                       child: Image.asset('assets/images/logo.png'),
                     ),
@@ -72,6 +72,5 @@ class InputNumber extends StatelessWidget {
         ),
       ),
     );
-
   }
 }

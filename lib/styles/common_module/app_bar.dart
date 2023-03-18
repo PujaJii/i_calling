@@ -23,7 +23,7 @@ class MyAppBars {
           child: const Icon(Icons.arrow_back_outlined,color: Colors.black)),
       actions: [
         Icon(icon,color: Colors.blueGrey),
-        SizedBox(width: 20,)
+        const SizedBox(width: 20,)
       ],
     );
   }

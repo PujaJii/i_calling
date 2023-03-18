@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Container(
               child: Image.asset('assets/images/caller.gif'),
             ),
-            Text('i - Calling',style: TextStyle(
+            const Text('i - Calling',style:  TextStyle(
                 color: AppColors.themeColor,
                 fontSize: 25,
                 fontFamily: 'JacquesFrancois-Regular')),

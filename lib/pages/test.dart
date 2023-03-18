@@ -167,9 +167,9 @@ class _TestCallsState extends State<TestCalls> {
                             children: [
                               item.callType.toString() == 'CallType.incoming' ?
                               Row(
-                                children: [
+                                children: const [
                                   Icon(Icons.call_received, size: 18, color: AppColors.themeColor,),
-                                  const Text('Received Call'),
+                                  Text('Received Call'),
                                 ],
                               ) :
                               item.callType.toString() == 'CallType.outgoing' ?

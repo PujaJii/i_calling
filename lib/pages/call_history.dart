@@ -7,7 +7,7 @@ import 'package:i_calling/pages/search_page.dart';
 import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:i_calling/pages/test2.dart';
+import 'package:i_calling/pages/num_pad.dart';
 import 'package:i_calling/pages/user_profile.dart';
 import 'package:i_calling/styles/app_colors.dart';
 import 'package:intl/intl.dart';
@@ -105,8 +105,8 @@ class _CallHistoryState extends State<CallHistory> {
       // const Color(0x3300AF5B),
        const Color(0xFF00AF5B),
        const Color(0xFF1800AF),
-       Color(0xFFAF4A00),
-       Color(0xFF13828A),
+       const Color(0xFFAF4A00),
+       const Color(0xFF13828A),
     ];
 
     final List<Widget> children = <Widget>[];
@@ -187,7 +187,7 @@ class _CallHistoryState extends State<CallHistory> {
 
                         child: Container(
                          // height: 17,width: 17,
-                          padding: EdgeInsets.all(4),
+                          padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
                               color: AppColors.themeColor2,
                               borderRadius: BorderRadius.circular(10),
@@ -221,9 +221,9 @@ class _CallHistoryState extends State<CallHistory> {
                     children: [
                     entry.callType.toString() == 'CallType.incoming' ?
                     Row(
-                      children: [
-                        Icon(Icons.call_received, size: 18, color: AppColors.themeColor,),
-                        const Text('Received Call'),
+                      children: const[
+                         Icon(Icons.call_received, size: 18, color: AppColors.themeColor,),
+                         Text('Received Call'),
                       ],
                     ) :
                     entry.callType.toString() == 'CallType.outgoing' ?
@@ -303,7 +303,7 @@ class _CallHistoryState extends State<CallHistory> {
                     //right: 14,
                     child: Container(
                       // height: 17,width: 17,
-                      padding: EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
                           color: AppColors.themeColor2,
                           borderRadius: BorderRadius.circular(10),
@@ -345,7 +345,7 @@ class _CallHistoryState extends State<CallHistory> {
       SafeArea(
       child: isLoading == false
           ?
-       Scaffold(
+       const Scaffold(
           body: Center(child: CircularProgressIndicator(color: AppColors.themeColor,)))
           :
       Scaffold(
