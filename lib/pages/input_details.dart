@@ -36,7 +36,7 @@ class InputDetails extends StatelessWidget {
                     style: const TextStyle(fontSize: 15, color: Colors.black),
                     decoration: InputDecoration(
                       hintStyle: const TextStyle(color: Colors.black),
-                      prefixIcon: const Icon(Icons.person,color: AppColors.themeColor),
+                      prefixIcon: const Icon(Icons.person,color: AppColors.themeColor2),
                       //suffixIcon: Icon(Icons.canc),
                       fillColor: Colors.white,
                       filled: true,
@@ -68,7 +68,7 @@ class InputDetails extends StatelessWidget {
                     style: const TextStyle(fontSize: 15, color: Colors.black),
                     decoration: InputDecoration(
                       hintStyle: const TextStyle(color: Colors.black),
-                      prefixIcon: const Icon(Icons.person,color: AppColors.themeColor),
+                      prefixIcon: const Icon(Icons.person,color: AppColors.themeColor2),
                       fillColor: Colors.white,
                       filled: true,
                       contentPadding: const EdgeInsets.symmetric(
@@ -99,7 +99,7 @@ class InputDetails extends StatelessWidget {
                     style: const TextStyle(fontSize: 15, color: Colors.black),
                     decoration: InputDecoration(
                       hintStyle: const TextStyle(color: Colors.black),
-                      prefixIcon: const Icon(Icons.mail,color: AppColors.themeColor),
+                      prefixIcon: const Icon(Icons.mail,color: AppColors.themeColor2),
                       fillColor: Colors.white,
                       filled: true,
                       contentPadding: const EdgeInsets.symmetric(

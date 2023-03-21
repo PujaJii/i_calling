@@ -3,7 +3,7 @@ import 'dart:ui';
 class AppColors {
 
   //#ca1f26
-  static const Color themeColor =  Color(0xFF009688);
+  static const Color themeColor =  Color(0xFF19A600);
   static const Color themeColor2 = Color(0xFF001E7E);
   static const Color pattern1 = Color(0x3300AF5B);
   static const Color pattern2 = Color(0x331800AF);

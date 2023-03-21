@@ -47,6 +47,9 @@ dependencies:
   contacts_service: ^0.6.3
   permission_handler: ^10.2.0
   flutter_share: ^2.0.0
+  loop_page_view: ^1.2.1
+  connectivity: ^3.0.6
+  telephony: ^0.2.0
 
 dev_dependencies:
   flutter_test:

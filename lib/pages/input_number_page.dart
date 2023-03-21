@@ -28,8 +28,8 @@ class InputNumber extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 40,
-                      child: Image.asset('assets/images/logo.png'),
+                      height: 80,
+                      child: Image.asset('assets/images/app_log_a.jpg'),
                     ),
                   ],
                 ),const SizedBox(height: 40,),

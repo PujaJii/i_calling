@@ -128,7 +128,7 @@ class _CallHistoryState extends State<CallHistory> {
       // print(entry.callType.toString());
 
       var mycl = colors[index % colors.length];
-      var mycl2 = colors2[index % colors.length];
+      var mycl2 = colors2[index % colors2.length];
       children.add(
           InkWell(
               splashColor: AppColors.pattern1,
@@ -160,9 +160,9 @@ class _CallHistoryState extends State<CallHistory> {
                         ),
                         child: entry.name == null || entry.name == ''?
                          Center(child: Text(
-                            'U', style: TextStyle(color : colors2[index % colors.length], fontSize: 20))) :
+                            'U', style: TextStyle(color : colors2[index % colors2.length], fontSize: 20))) :
                         Center(child: Text(((entry.name!).substring(0, 1)),
-                            style: TextStyle(color : colors2[index % colors.length], fontSize: 20))),
+                            style: TextStyle(color : colors2[index % colors2.length], fontSize: 20))),
                       ),
                       Positioned(
                         left: 0,
@@ -294,9 +294,9 @@ class _CallHistoryState extends State<CallHistory> {
                         color: colors[index % colors.length]),
                     child: Center(child: entry.name == null || entry.name == '' ?
                      Text(
-                      'U', style: TextStyle(color: colors2[index % colors.length], fontSize: 20),)
+                      'U', style: TextStyle(color: colors2[index % colors2.length], fontSize: 20),)
                         : Text(((entry.name!).substring(0, 1)),
-                      style:  TextStyle(color: colors2[index % colors.length], fontSize: 20),)),
+                      style:  TextStyle(color: colors2[index % colors2.length], fontSize: 20),)),
                   ),
                   Positioned(
                     bottom: 0,

@@ -43,7 +43,7 @@ class Profile extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.black,
                   image: const DecorationImage(image: AssetImage('assets/images/my_profile.jpg')),
-                  borderRadius: BorderRadius.circular(15)),
+                  borderRadius: BorderRadius.circular(50)),
               ),
             const SizedBox(height: 15,),
             const Text('+91 85422 65782',style: TextStyle(fontSize: 16)),

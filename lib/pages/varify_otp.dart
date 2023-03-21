@@ -47,7 +47,10 @@ class VerifyOTP extends StatelessWidget {
                 otpFieldStyle: OtpFieldStyle(),
                 fieldStyle: FieldStyle.box,
                 onCompleted: (pin) {
-                  debugPrint("Completed: $pin");
+                //  debugPrint("Completed: $pin");
+
+                },
+                onChanged: (value) {
 
                 },
               ),

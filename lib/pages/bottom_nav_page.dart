@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:i_calling/pages/profile.dart';
+import 'package:telephony/telephony.dart';
 
 import '../styles/app_colors.dart';
 import 'call_history.dart';
 import 'contact_page.dart';
 import 'invite_page.dart';
+import 'messages_page.dart';
 
 
 
@@ -20,14 +22,27 @@ class BottomNavPage extends StatefulWidget {
 
 class _BottomNavPageState extends State<BottomNavPage> {
   int _currentIndex = 0;
+  Telephony telephony = Telephony.instance;
   final List<Widget> _screens =
   [
     const CallHistory(),
+    const MessagesPage(),
     const ContactsPage(),
     const InvitePage(),
     const Profile(),
   ];
 
+  Future<void> getCallStatus() async{
+    await telephony.requestSmsPermissions;
+    var callState = await telephony.callState;
+    print(callState);
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    getCallStatus();
+    super.initState();
+  }
   int initValue = 0;
 
   // final ThemeStyle _currentStyle = ThemeStyle.NotificationBadge;
@@ -63,6 +78,12 @@ class _BottomNavPageState extends State<BottomNavPage> {
           icon: const Icon(Icons.call_outlined),
           selectedTitle: const Text('Call',style: TextStyle(fontSize: 12,color: AppColors.themeColor),),
           title: const Text('Call',style: TextStyle(fontSize: 12),)
+        ),
+        CustomNavigationBarItem(
+            icon: Image.asset('assets/images/message_icon.png',
+                color: _currentIndex== 1?AppColors.themeColor:Colors.grey),
+            selectedTitle: const Text('Messages',style: TextStyle(fontSize: 12,color: AppColors.themeColor),),
+            title: const Text('Messages',style: TextStyle(fontSize: 12),)
         ),
         CustomNavigationBarItem(
           icon: const Icon(Icons.contacts),
