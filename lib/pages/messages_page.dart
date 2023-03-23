@@ -100,7 +100,6 @@ class _MessagesPageState extends State<MessagesPage> {
                 itemBuilder: (context, index) {
                 return ListTile(
                   leading: Container(
-
                     width: 50,
                     height: 50,
                     margin: const EdgeInsets.only(bottom: 6),
