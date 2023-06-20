@@ -20,8 +20,8 @@ class ViewAll extends StatelessWidget {
           children: [
             const SizedBox(height: 20,),
             Text('    $number',style: const TextStyle(fontSize: 17)),
-            Row(
-              children: const [
+            const Row(
+              children: [
                 Icon(Icons.call_missed,color: Colors.red),
                 Text('    Mobile'),
                 Text('    5:32 PM'),

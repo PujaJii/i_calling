@@ -220,36 +220,36 @@ class _CallHistoryState extends State<CallHistory> {
                 subtitle: Row(
                     children: [
                     entry.callType.toString() == 'CallType.incoming' ?
-                    Row(
-                      children: const[
+                    const Row(
+                      children: [
                          Icon(Icons.call_received, size: 18, color: AppColors.themeColor,),
                          Text('Received Call'),
                       ],
                     ) :
                     entry.callType.toString() == 'CallType.outgoing' ?
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                          Icon(Icons.call_made, size: 18,),
                          Text('Outgoing Call'),
                       ],
                     ) :
                     entry.callType.toString() == 'CallType.missed' ?
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                          Icon(Icons.call_missed, size: 18, color: Colors.red),
                          Text('Missed Call'),
                       ],
                     ) :
                     entry.callType.toString() == 'CallType.blocked' ?
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                          Icon(Icons.block, size: 18, color: Colors.blue),
                          Text('Blocked Call'),
                       ],
                     ) :
                     entry.callType.toString() == 'CallType.rejected' ?
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                          Icon(Icons.call_missed, size: 18, color: Colors.red),
                          Text('Rejected call'),
                       ],
@@ -339,15 +339,10 @@ class _CallHistoryState extends State<CallHistory> {
           ));
       index++;
     }
-    return
-
-
-      SafeArea(
-      child: isLoading == false
-          ?
+    return SafeArea(
+      child: isLoading == false ?
        const Scaffold(
-          body: Center(child: CircularProgressIndicator(color: AppColors.themeColor,)))
-          :
+          body: Center(child: CircularProgressIndicator(color: AppColors.themeColor,))) :
       Scaffold(
         body: RefreshIndicator(
           key: _refreshIndicatorKey,
@@ -428,6 +423,10 @@ class _CallHistoryState extends State<CallHistory> {
                   //     ),
                   //   ),
                   // ),
+                  faves.isEmpty?
+                  Container(
+                    child: const Text('Call logs is empty!!'),
+                  ):
                   SizedBox(
                     height: 90,
                     child: ListView.builder(
@@ -466,7 +465,7 @@ class _CallHistoryState extends State<CallHistory> {
         isScrollControlled : true,
         builder: (BuildContext context) {
           return FractionallySizedBox(
-            heightFactor: 0.6,
+           // heightFactor: 0.6,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

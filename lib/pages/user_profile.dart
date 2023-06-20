@@ -9,11 +9,11 @@ import '../styles/app_colors.dart';
 
 class UserProfile extends StatelessWidget {
  // const UserProfile({Key? key}) : super(key: key);
-  String name;
-  String number;
-  Color color;
-  Color color2;
-  UserProfile(this.name,this.number,this.color,this.color2, {Key? key}) : super(key: key);
+  final String name;
+  final String number;
+  final Color color;
+  final Color color2;
+  const UserProfile(this.name,this.number,this.color,this.color2, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +43,7 @@ class UserProfile extends StatelessWidget {
                   name == 'null'|| name == '' ?
                   const Text('Unknown Number',
                       style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16.0,
-                      )):
+                        color: Colors.black, fontSize: 16.0,)):
                   Text(name,
                       style: const TextStyle(
                         color: Colors.black,
@@ -192,15 +190,15 @@ class UserProfile extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(20,20,0,20),
                 child: Column(
                   children: [
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Icon(Icons.location_on_outlined),
                         Text('       West Bengal, India')
                       ],
                     ),
                     Divider(color: Colors.grey[300],),
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Icon(Icons.mail_outline_sharp),
                         Expanded(child: Text('       username.tnts@gmail.com'))
                       ],

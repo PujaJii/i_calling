@@ -16,8 +16,8 @@ class Profile extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
-        title: Column(
-          children: const[
+        title: const Column(
+          children: [
             Text('Santanu Sharma',style:  TextStyle(color: Colors.black)),
             //Container(child: Text(subTitle,style: const TextStyle(color: Colors.grey))),
           ],
@@ -68,65 +68,65 @@ class Profile extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(border: Border.all(color: Colors.grey[300]!),
                   borderRadius: const  BorderRadius.all(Radius.circular(8))),
-              child: Column(
+              child: const Column(
                 children: [
-                  const SizedBox(height: 20,),
+                  SizedBox(height: 20,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Column(
                         children: [
                           Row(
-                            children: const [
+                            children: [
                               Icon(Icons.verified_user_outlined,color: Colors.redAccent,),
                               Text('15'),
                             ],
                           ),
-                          const Text('Total Spam Calls')
+                          Text('Total Spam Calls')
                         ],
                       ),
                       Column(
                         children: [
                           Row(
-                            children: const[
+                            children: [
                               Icon(Icons.verified_user_outlined,color: Colors.redAccent,),
                               Text('15'),
                             ],
                           ),
-                          const Text('Total Spam Calls')
+                          Text('Total Spam Calls')
                         ],
                       )
                     ],
                   ),
-                  const SizedBox(height: 20,),
+                  SizedBox(height: 20,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Column(
                         children: [
                           Row(
-                            children: const [
+                            children: [
                               Icon(Icons.verified_user_outlined,color: Colors.redAccent,),
                               Text('15'),
                             ],
                           ),
-                          const Text('Total Spam Calls')
+                          Text('Total Spam Calls')
                         ],
                       ),
                       Column(
                         children: [
                           Row(
-                            children: const [
+                            children: [
                               Icon(Icons.verified_user_outlined,color: Colors.redAccent,),
                               Text('15'),
                             ],
                           ),
-                          const Text('Total Spam Calls')
+                          Text('Total Spam Calls')
                         ],
                       )
                     ],
                   ),
-                  const SizedBox(height: 20,),
+                  SizedBox(height: 20,),
                 ],
               ),
             ),
@@ -137,22 +137,22 @@ class Profile extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(20,20,0,20),
               child: Column(
                 children: [
-                  Row(
-                    children:  const [
+                  const Row(
+                    children:  [
                       Icon(Icons.location_on_outlined,color: AppColors.themeColor),
                       Text('      West Bengal, India')
                     ],
                   ),
                   Divider(color: Colors.grey[300],),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Icon(Icons.notifications_none_outlined,color: AppColors.themeColor),
                       Text('     Notification')
                     ],
                   ),
                   Divider(color: Colors.grey[300],),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Icon(Icons.verified_user_outlined,color: AppColors.themeColor),
                       Text('     Protect')
                     ],

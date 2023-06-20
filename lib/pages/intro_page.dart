@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:i_calling/pages/input_number_page.dart';
 import 'package:loop_page_view/loop_page_view.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:telephony/telephony.dart';
 import '../styles/app_colors.dart';
 
 
@@ -37,11 +36,11 @@ class _IntroPageState extends State<IntroPage> {
 
    // await telephony.requestPhoneAndSmsPermissions;
     if (await Permission.notification.isGranted){
-      print(Permission.notification.isGranted);
+      //print(Permission.notification.isGranted);
     } else {
       await Permission.notification.request();
-      print('can not pick permission ...................');
-      print(Permission.notification.isGranted);
+     // print('can not pick permission ...................');
+      //print(Permission.notification.isGranted);
     }
     if (await Permission.contacts.isGranted) {
 

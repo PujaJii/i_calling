@@ -16,25 +16,26 @@ class RealTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StreamController<Iterable<CallLogEntry>> _callLogStreamController = StreamController.broadcast();
     int index = 0;
+    StreamController<Iterable<CallLogEntry>> callLogStreamController = StreamController.broadcast();
+
 
     Future<void> getAllLogs() async {
       CallLog.get().then((callLogs) {
-        _callLogStreamController.add(callLogs);
+        callLogStreamController.add(callLogs);
       },
        onError: (err){
-        print(err);
+        //print(err);
           }
       );
 
     }
-    _callNumber(var number) async {
+    callNumber(var number) async {
       bool? res = await FlutterPhoneDirectCaller.callNumber(number);
     }
     return Scaffold(
       body: StreamBuilder<Iterable<CallLogEntry>>(
-        stream: _callLogStreamController.stream,
+        stream: callLogStreamController.stream,
         builder: (context, snapshot) {
           getAllLogs();
           if (!snapshot.hasData) {
@@ -63,7 +64,7 @@ class RealTime extends StatelessWidget {
                   splashColor: AppColors.pattern1,
                   highlightColor: AppColors.pattern1,
                   onTap: () {
-                    _callNumber(entry.number);
+                    callNumber(entry.number);
                   },
                   child: ListTile(
                     leading: InkWell(
@@ -88,10 +89,10 @@ class RealTime extends StatelessWidget {
                               color: AppColors.pattern1,
                             ),
                             child: entry.name == null || entry.name == ''?
-                            Center(child: Text(
-                                'U', style: TextStyle(color :  const Color(0xFF00AF5B), fontSize: 20))) :
+                            const Center(child: Text(
+                                'U', style: TextStyle(color :  Color(0xFF00AF5B), fontSize: 20))) :
                             Center(child: Text(((entry.name!).substring(0, 1)),
-                                style: TextStyle(color :  const Color(0xFF00AF5B), fontSize: 20))),
+                                style: const TextStyle(color :  Color(0xFF00AF5B), fontSize: 20))),
                           ),
                           Positioned(
                             left: 0,
@@ -113,7 +114,6 @@ class RealTime extends StatelessWidget {
                           ),
                           Positioned(
                             bottom: 0,
-
                             child: Container(
                               // height: 17,width: 17,
                               padding: const EdgeInsets.all(4),
@@ -149,36 +149,36 @@ class RealTime extends StatelessWidget {
                     subtitle: Row(
                       children: [
                         entry.callType.toString() == 'CallType.incoming' ?
-                        Row(
-                          children: const[
+                        const Row(
+                          children: [
                             Icon(Icons.call_received, size: 18, color: AppColors.themeColor,),
                             Text('Received Call'),
                           ],
                         ) :
                         entry.callType.toString() == 'CallType.outgoing' ?
-                        Row(
-                          children: const [
+                        const Row(
+                          children: [
                             Icon(Icons.call_made, size: 18,),
                             Text('Outgoing Call'),
                           ],
                         ) :
                         entry.callType.toString() == 'CallType.missed' ?
-                        Row(
-                          children: const [
+                        const Row(
+                          children: [
                             Icon(Icons.call_missed, size: 18, color: Colors.red),
                             Text('Missed Call'),
                           ],
                         ) :
                         entry.callType.toString() == 'CallType.blocked' ?
-                        Row(
-                          children: const [
+                        const Row(
+                          children: [
                             Icon(Icons.block, size: 18, color: Colors.blue),
                             Text('Blocked Call'),
                           ],
                         ) :
                         entry.callType.toString() == 'CallType.rejected' ?
-                        Row(
-                          children: const [
+                        const Row(
+                          children: [
                             Icon(Icons.call_missed, size: 18, color: Colors.red),
                             Text('Rejected call'),
                           ],
