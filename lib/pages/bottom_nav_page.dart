@@ -35,11 +35,10 @@ class _BottomNavPageState extends State<BottomNavPage> {
   Future<void> getCallStatus() async{
     await telephony.requestSmsPermissions;
     var callState = await telephony.callState;
-    print(callState);
+    debugPrint(callState.toString());
   }
   @override
   void initState() {
-    // TODO: implement initState
     getCallStatus();
     super.initState();
   }

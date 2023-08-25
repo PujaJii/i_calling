@@ -51,12 +51,13 @@ class CallHistory extends StatefulWidget {
 
 class _CallHistoryState extends State<CallHistory> {
 
-  Iterable<CallLogEntry> _callLogEntries = <CallLogEntry>[];
+
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
   GlobalKey<RefreshIndicatorState>();
 
 
   int index = 0;
+  bool isLoading = false;
   @override
   void initState() {
       getAllLogs();
@@ -67,9 +68,9 @@ class _CallHistoryState extends State<CallHistory> {
     // _refreshIndicatorKey.currentState?.show();
     getAllLogs();
   }
-  bool isLoading = false;
 
 
+  Iterable<CallLogEntry> _callLogEntries = <CallLogEntry>[];
   Future<void> getAllLogs() async {
     // var now = DateTime.now();
     // int from = now
@@ -81,6 +82,7 @@ class _CallHistoryState extends State<CallHistory> {
     final Iterable<CallLogEntry> result = await CallLog.query(
       // dateFrom: from,
       // dateTo: to,
+     // number: '9614159151'
     );
     setState(() {
       _callLogEntries = result;
@@ -184,7 +186,6 @@ class _CallHistoryState extends State<CallHistory> {
                       ),
                       Positioned(
                         bottom: 0,
-
                         child: Container(
                          // height: 17,width: 17,
                           padding: const EdgeInsets.all(4),
@@ -376,7 +377,6 @@ class _CallHistoryState extends State<CallHistory> {
                           ),
                           child: Row(
                             children:  [
-                              //const SizedBox(width: 15,),
                               Container(
                                 height: 33,
                                 width: 33,
@@ -424,9 +424,8 @@ class _CallHistoryState extends State<CallHistory> {
                   //   ),
                   // ),
                   faves.isEmpty?
-                  Container(
-                    child: const Text('Call logs is empty!!'),
-                  ):
+                  const Text('Call logs is empty!!'):faves.length < 6?
+                  Container():
                   SizedBox(
                     height: 90,
                     child: ListView.builder(
@@ -490,7 +489,7 @@ class _CallHistoryState extends State<CallHistory> {
                               }, icon: const Icon(Icons.backspace_outlined),
                             ))),
                     style: const TextStyle(fontSize: 30),
-                    // Disable the default soft keybaord
+                    // Disable the default soft keyBoard
                     keyboardType: TextInputType.none,
                   ),
                 ),

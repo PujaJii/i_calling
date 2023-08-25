@@ -252,7 +252,7 @@ class RealTime extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 8,
                               color: Colors.white,
-                            ),),
+                            ))
                         ),
                       ),
                     )
@@ -296,7 +296,7 @@ class RealTime extends StatelessWidget {
                               borderRadius: BorderRadius.circular(6)
                           ),
                           child: Row(
-                            children:  [
+                            children: [
                               //const SizedBox(width: 15,),
                               Container(
                                 height: 33,
@@ -352,8 +352,7 @@ class RealTime extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return faves[index];
-                      },),
-                  ),
+                      },)),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(children: children),

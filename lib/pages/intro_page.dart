@@ -24,6 +24,7 @@ final List<String> _myList = [
   'A trusted Platform\nfor making class',
   'Detect spam calls\neasily'
 ];
+
 final List<String> images = [
   'assets/images/intro_a.gif',
   'assets/images/intro_b.gif',
@@ -37,7 +38,8 @@ class _IntroPageState extends State<IntroPage> {
    // await telephony.requestPhoneAndSmsPermissions;
     if (await Permission.notification.isGranted){
       //print(Permission.notification.isGranted);
-    } else {
+    }
+    else {
       await Permission.notification.request();
      // print('can not pick permission ...................');
       //print(Permission.notification.isGranted);
@@ -56,7 +58,6 @@ class _IntroPageState extends State<IntroPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getContactPermission();
     super.initState();
   }
@@ -74,7 +75,6 @@ class _IntroPageState extends State<IntroPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              //  const Text('i - Calling',style:  TextStyle(color: AppColors.themeColor,fontSize: 25,fontFamily: 'JacquesFrancois-Regular')),
                 const SizedBox(height: 10,),
                 SizedBox(
                   height: 100,
@@ -106,7 +106,8 @@ class _IntroPageState extends State<IntroPage> {
                     Center(
                       child: Text(_myList[index],
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold,)),
+                          style: const TextStyle(fontSize: 16,
+                            fontWeight: FontWeight.bold,)),
                     ),
                   ],
                 );
@@ -127,7 +128,8 @@ class _IntroPageState extends State<IntroPage> {
                             },
                             child: CircleAvatar(
                               radius: 5,
-                              backgroundColor: _indicator == index? AppColors.themeColor: Colors.grey,),
+                              backgroundColor: _indicator == index?
+                              AppColors.themeColor : Colors.grey,),
                           ),);
                       },
               ),
@@ -139,9 +141,12 @@ class _IntroPageState extends State<IntroPage> {
                },
                child: Container(
                   height: 50,
-                  decoration: BoxDecoration(color: AppColors.themeColor,borderRadius: BorderRadius.circular(5)),
+                  decoration: BoxDecoration(
+                      color: AppColors.themeColor,
+                      borderRadius: BorderRadius.circular(5)),
                   margin: const EdgeInsets.symmetric(horizontal: 20),
-                  child: const Center(child:  Text('Continue',style: TextStyle(color: Colors.white,fontSize: 18))),
+                  child: const Center(child:  Text('Continue',
+                      style: TextStyle(color: Colors.white,fontSize: 18))),
                 ),
              ),
             //const SizedBox(height: 2,),

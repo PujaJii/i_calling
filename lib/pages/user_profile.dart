@@ -1,13 +1,15 @@
+import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import 'package:i_calling/pages/view_all.dart';
+import 'package:intl/intl.dart';
 
 import '../styles/app_colors.dart';
 
 
 
-class UserProfile extends StatelessWidget {
+class UserProfile extends StatefulWidget {
  // const UserProfile({Key? key}) : super(key: key);
   final String name;
   final String number;
@@ -16,6 +18,46 @@ class UserProfile extends StatelessWidget {
   const UserProfile(this.name,this.number,this.color,this.color2, {Key? key}) : super(key: key);
 
   @override
+  State<UserProfile> createState() => _UserProfileState();
+}
+
+
+class _UserProfileState extends State<UserProfile> {
+
+
+  @override
+  void initState() {
+    getAllLogs();
+    super.initState();
+  }
+
+  final List<Widget> _children = <Widget>[];
+  List<CallLogEntry> entry = [];
+  Iterable<CallLogEntry> _callLogEntries = <CallLogEntry>[];
+  Future<void> getAllLogs() async {
+    // var now = DateTime.now();
+    // int from = now
+    //     .subtract(const Duration(days: 2))
+    //     .millisecondsSinceEpoch;
+    // int to = now
+    //     .subtract(const Duration(days: 0))
+    //     .millisecondsSinceEpoch;
+    final Iterable<CallLogEntry> result = await CallLog.query(
+      // dateFrom: from,
+      // dateTo: to,
+        number: widget.number
+    );
+    setState(() {
+      _callLogEntries = result;
+      //isLoading = true;
+    });
+
+    for(CallLogEntry eachCalls in _callLogEntries)
+    {
+      entry.add(eachCalls);
+    }
+  }
+  @override
   Widget build(BuildContext context) {
     //print(color);
     return Scaffold(
@@ -23,7 +65,7 @@ class UserProfile extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              expandedHeight: 200.0,
+              expandedHeight: 200,
               floating: false,
               backgroundColor: Colors.white,
               elevation: 0,
@@ -40,11 +82,11 @@ class UserProfile extends StatelessWidget {
                   centerTitle: true,
                   collapseMode: CollapseMode.parallax,
                   title:
-                  name == 'null'|| name == '' ?
+                  widget.name == 'null'|| widget.name == '' ?
                   const Text('Unknown Number',
                       style: TextStyle(
                         color: Colors.black, fontSize: 16.0,)):
-                  Text(name,
+                  Text(widget.name,
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16.0,
@@ -77,15 +119,15 @@ class UserProfile extends StatelessWidget {
                                 color: AppColors.white,
                                 width: 2),
                               borderRadius: BorderRadius.circular(40),
-                              color: color
+                              color: widget.color
                           ),
                           child: Center(child:
-                          name == 'null' || name == '' ?
-                          Text(
-                            'U', style: TextStyle(color: color2, fontSize: 30),)
+                          widget.name == 'null' || widget.name == '' ?
+                           Text(
+                            'U', style: TextStyle(color: widget.color2, fontSize: 30),)
                               :
-                          Text(((name).substring(0, 1)),
-                            style:  TextStyle(color: color2, fontSize: 30),)
+                           Text(((widget.name).substring(0, 1)),
+                            style:  TextStyle(color: widget.color2, fontSize: 30),)
                           ),
                         ),
                       ),
@@ -103,7 +145,7 @@ class UserProfile extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              Center(child: Text(number)),
+              Center(child: Text(widget.number)),
               const SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -112,7 +154,7 @@ class UserProfile extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          _callNumber(number);
+                          _callNumber(widget.number);
                         },
                         child: Container(
                           height: 45,
@@ -227,7 +269,7 @@ class UserProfile extends StatelessWidget {
                 ),
               ),
               Container(
-                height: 190,
+                height: 210,
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey[300]!),
                     borderRadius:
@@ -237,28 +279,72 @@ class UserProfile extends StatelessWidget {
                  padding: const EdgeInsets.fromLTRB(20,20,0,5),
                  child: Column(
                    children: [
+
                      Expanded(
                        child: ListView.builder(
                         padding: EdgeInsets.zero,
-                          itemCount: 3,
+                          itemCount:
+                          entry.length < 3?
+                              entry.length:
+                          3,
                           itemBuilder: (context, index) {
+                          //print(_callLogEntries.length);
                           return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Text(widget.number,style: const TextStyle(fontSize: 16),),
                               Row(
-                                children:  [
-                                  const Icon(Icons.call_missed,color: Colors.red),
-                                  Text('        $number',style: const TextStyle(fontSize: 16),)
+                                children: [
+                                  entry[index].callType.toString() == 'CallType.incoming' ?
+                                  const Row(
+                                    children: [
+                                      Icon(Icons.call_received, size: 18, color: AppColors.themeColor,),
+                                      Text('Received Call'),
+                                    ],
+                                  ) :
+                                  entry[index].callType.toString() == 'CallType.outgoing' ?
+                                  const Row(
+                                    children: [
+                                      Icon(Icons.call_made, size: 18,),
+                                      Text('Outgoing Call'),
+                                    ],
+                                  ) :
+                                  entry[index].callType.toString() == 'CallType.missed' ?
+                                  const Row(
+                                    children: [
+                                      Icon(Icons.call_missed, size: 18, color: Colors.red),
+                                      Text('Missed Call'),
+                                    ],
+                                  ) :
+                                  entry[index].callType.toString() == 'CallType.blocked' ?
+                                  const Row(
+                                    children: [
+                                      Icon(Icons.block, size: 18, color: Colors.blue),
+                                      Text('Blocked Call'),
+                                    ],
+                                  ) :
+                                  entry[index].callType.toString() == 'CallType.rejected' ?
+                                  const Row(
+                                    children: [
+                                      Icon(Icons.call_missed, size: 18, color: Colors.red),
+                                      Text('Rejected call'),
+                                    ],
+                                  ) :
+                                  const SizedBox(),
+                                  const SizedBox(width: 8,),
+                                  //Text('${DateFormat("h:mm a").format(DateFormat("hh:mm").parse(DateTime.fromMillisecondsSinceEpoch(entry.timestamp!)))}'),
+                                  Text('.  ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(entry[index].timestamp!))}'),
                                 ],
                               ),
                               Divider(color: Colors.grey[300],),
                             ],
                           );
-                        },),
+                        } ,),
                      ),
                      InkWell(
                        onTap: () {
                          // if (_formKey.currentState!.validate()) {
-                         Get.to(()=> ViewAll(number));
+                         Get.to(()=> ViewAll(widget.number));
                          // }
                        },
                        child: const SizedBox(

@@ -38,9 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              child: Image.asset('assets/images/app_log_a.jpg'),
-            ),
+            Image.asset('assets/images/app_log_a.jpg'),
             // const Text('true NameLocations',style:  TextStyle(
             //     color: AppColors.themeColor,
             //     fontSize: 25,

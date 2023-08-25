@@ -11,12 +11,11 @@ class InputNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-
+    final formKey = GlobalKey<FormState>();
     return
       Scaffold(
       body: Form(
-        key: _formKey,
+        key: formKey,
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
            mainAxisAlignment: MainAxisAlignment.center,
@@ -33,17 +32,18 @@ class InputNumber extends StatelessWidget {
                     ),
                   ],
                 ),const SizedBox(height: 40,),
-                const Text('Enter Your Phone Number',style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: 'JacquesFrancois-Regular')),
+                const Text('Enter Your Phone Number',style: TextStyle(
+                    color: Colors.black,fontSize: 16,fontFamily: 'JacquesFrancois-Regular')
+                ),
                 Container(
                   margin: const EdgeInsets.symmetric(
                       horizontal: 25, vertical: 10),
                   child:
                   IntlPhoneField(
                     decoration: const InputDecoration(
-                     // labelText: 'Phone Number',
                       prefixIcon: SizedBox(),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black,),
+                        borderSide: BorderSide(color: Colors.black),
                       ),
                     ),
                     initialCountryCode: 'IN',
@@ -57,7 +57,7 @@ class InputNumber extends StatelessWidget {
             const SizedBox(height: 20,),
             InkWell(
               onTap: () {
-                if (_formKey.currentState!.validate()) {
+                if (formKey.currentState!.validate()) {
                   Get.to(()=> const VerifyOTP());
                 }
               },
